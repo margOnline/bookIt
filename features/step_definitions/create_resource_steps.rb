@@ -24,3 +24,19 @@ end
 Then(/^the user will see the name "(.*?)" of the resource that he just created$/) do |name|
   expect(page).to have_content name
 end
+
+# Deleting a resource
+Given(/^the user sees the name "(.*?)" in the list of resources$/) do |name|
+  expect(page).to have_content name
+end
+
+When(/^the user clicks the "(.*?)" link for the resource$/) do |link|
+  click_link link
+end
+
+Then(/^the user wont see the name "(.*?)"$/) do |name|
+  expect(page).to_not have_content name
+end
+
+
+

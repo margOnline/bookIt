@@ -7,6 +7,8 @@ BookIt::Application.routes.draw do
 
   resources :resources
 
+  #match '/resources'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
