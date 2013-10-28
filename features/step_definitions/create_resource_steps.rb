@@ -1,5 +1,5 @@
 Given(/^the user visits the home page$/) do
-  visit root_path
+  visit new_resource_path
 end
 
 Given(/^there are no resources in the database$/) do
@@ -12,5 +12,5 @@ When(/^I create a resource with the name "(.*?)"$/) do |name|
 end
 
 Then(/^the number of resources in the database will increase by (\d+)$/) do |number|
-  expect(Resource.count).to == number
+  expect(Resource.count).to eq number.to_i
 end
