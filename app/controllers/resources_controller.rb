@@ -37,8 +37,8 @@ class ResourcesController < ApplicationController
       flash[:notice] = 'Your resource was updated succesfully'
       redirect_to root_path
     else
-      flash[:error] = 'There was an error with editing your resource. Please try again'
-      render 'edit'
+      flash[:alert] = 'There was an error with editing your resource. Please try again'
+      redirect_to edit_resource_path(@resource)
     end
   end
 
