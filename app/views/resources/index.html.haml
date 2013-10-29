@@ -1,6 +1,5 @@
 - @resources.each do |resource|
   .resource
-    .resource-name
-      = resource.name
-      = link_to "Delete", resource_path(resource), data: { confirm: 'Are you sure?' }, method: :delete
-      = link_to "Edit", edit_resource_path(resource)
+    = resource.name
+    = link_to "Delete", resource_path(resource), data: { confirm: 'Are you sure?' }, method: :delete
+    = link_to "Edit", edit_resource_path(resource)

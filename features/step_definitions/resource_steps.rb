@@ -88,12 +88,14 @@ end
 # USER CAN'T EDIT RESOURCE WITH A NAME THAT IS ALREADY TAKEN
 When(/^the user is on the the "(.*?)" edit page$/) do |name|
   page.first('.resource').click_link('Edit')
+  # within page.all('.resource')[1] do
+  #   click_link 'Edit'
+  # end
 end
 
 When(/^the user fills in the name field with "(.*?)" and clicks the "(.*?)" button\.$/) do |name, button|
   fill_in "Name", with: name
   click_button button
 end
-
 
 
