@@ -51,6 +51,8 @@ Then(/^the user will see a "(.*?)" button$/) do |edit|
   expect(page).to have_button edit
 end
 
+
+# USER CAN EDIT RESOURCE
 Given(/^there is a resource with the name "(.*?)"$/) do |name|
   visit root_path
   expect(page).to have_content name
@@ -73,6 +75,12 @@ Then(/^there should be a flash message saying the page has been successfully upd
   expect(page).to have_content 'Your resource was updated succesfully'
 end
 
+# USER CAN'T EDIT RESOURCE IF YOU LEAVE NAME FIELD BLANK
+When(/^the user doesn't fill in the name field and clicks the "(.*?)" button\.$/) do |button|
+  fill_in "Name", with:''
+  click_button button
+end
 
-
-
+Then(/^the user should see the error message "(.*?)"$/) do |message|
+  expect(page).to have_content message
+end
