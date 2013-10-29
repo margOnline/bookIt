@@ -21,4 +21,12 @@ Feature: The user can edit resources that have been created
   Given there is a resource with the name "Centre court" 
   When the user is on the resource's edit page
   And the user doesn't fill in the name field and clicks the "Submit" button.
-  And the user should see the error message "Unable to save resource. Please try again"
+  Then the user should see the error message "Name can't be blank"
+
+  # @created_resource
+  @multiple_resources
+  Scenario: If I try to edit a resource with a name that is already taken.
+  Given there is a resource with the name "Centre court" 
+  When the user is on the the "Centre court" edit page
+  And the user fills in the name field with "Suzanne Lenglan" and clicks the "Submit" button.
+  Then the user should see the error message "Name has already been taken"

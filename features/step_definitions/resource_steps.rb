@@ -84,3 +84,16 @@ end
 Then(/^the user should see the error message "(.*?)"$/) do |message|
   expect(page).to have_content message
 end
+
+# USER CAN'T EDIT RESOURCE WITH A NAME THAT IS ALREADY TAKEN
+When(/^the user is on the the "(.*?)" edit page$/) do |name|
+  page.first('.resource').click_link('Edit')
+end
+
+When(/^the user fills in the name field with "(.*?)" and clicks the "(.*?)" button\.$/) do |name, button|
+  fill_in "Name", with: name
+  click_button button
+end
+
+
+

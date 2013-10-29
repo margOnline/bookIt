@@ -1,4 +1,12 @@
 = form_for @resource do |f|
+  - if @resource.errors.any?
+    .errors
+      %h3
+        = pluralize(@resource.errors.count, 'error')
+        prohibited this resource from being saved:
+      %ul
+        - @resource.errors.full_messages.each do |message|
+          %li= message
   = f.label 'name', 'Name'
   = f.text_field 'name', placeholder: 'Name'
   = f.submit 'Submit'

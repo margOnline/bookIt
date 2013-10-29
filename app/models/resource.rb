@@ -1,4 +1,6 @@
 class Resource < ActiveRecord::Base
 
-  validates :name, presence: {message: 'You must enter a name'}
+  validates :name, 
+    presence: true, 
+    uniqueness: true
 end
