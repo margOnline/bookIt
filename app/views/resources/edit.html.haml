@@ -1,0 +1,4 @@
+= form_for @resource do |f|
+  = f.label 'name', 'Name'
+  = f.text_field 'name', placeholder: 'Enter the name of your resource'
+  = f.submit 'Update resource'

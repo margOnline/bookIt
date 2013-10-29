@@ -17,3 +17,11 @@ Feature: The user can create a resource
   And the user sees the name "Centre court" in the list of resources 
   When the user clicks the "Delete" link for the resource
   Then the user wont see the name "Centre court"
+
+  @created_resource
+  Scenario: Once a resource has been created, I can edit its name
+  Given the user visits the home page
+  And the users sees the name "Centre court" in the list of resources
+  When the user clicks the "Edit" link for the resource
+  Then the user will see an input field "New name"
+  And the user will see a "Update resource" button

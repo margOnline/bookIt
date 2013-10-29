@@ -26,6 +26,22 @@ class ResourcesController < ApplicationController
     redirect_to resources_path
   end
 
+  def edit
+    @resource = Resource.find(params[:id])
+  end
+
+  def update
+    @resource = Resource.find(params[:id])
+    @resource.update resource_params
+    if @resource.save
+      flash[:notice] = 'Your resource was updated succesfully'
+      redirect_to root_path
+    else
+      flash[:error] = 'There was an error with editing your resource. Please try again'
+      render 'edit'
+    end
+  end
+
   private
 
     def resource_params

@@ -38,5 +38,19 @@ Then(/^the user wont see the name "(.*?)"$/) do |name|
   expect(page).to_not have_content name
 end
 
+# Editing a resource
+Given(/^the users sees the name "(.*?)" in the list of resources$/) do |name|
+  expect(page).to have_content name
+end
+
+Then(/^the user will see an input field "(.*?)"$/) do |arg1|
+  expect(page).to have_css 'input'
+end
+
+Then(/^the user will see a "(.*?)" button$/) do |edit|
+  expect(page).to have_button edit
+end
+
+
 
 
