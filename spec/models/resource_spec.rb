@@ -6,6 +6,7 @@ describe Resource do
   subject { resource }
 
   it { should respond_to(:name) }
+  it { should respond_to(:bookings) }
 
   it 'should have a name' do
     expect(resource).to be_valid
