@@ -1,0 +1,18 @@
+= form_for @booking do |f|
+  %h3 
+    Add booking for 
+    = @booking.name
+
+    - if @booking.errors.any?
+      .errors
+        %h3
+          = pluralize(@booking.errors.count, 'error')
+          prohibited this booking from being saved:
+        %ul
+          - @booking.errors.full_messages.each do |message|
+            %li= message
+    = f.label 'start_time', 'Start time'
+    = f.text_field 'start_time'
+    = f.label 'time_length', 'Length of booking'
+    = f.number_field 'time_length'
+    = f.submit 'Submit'

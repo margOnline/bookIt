@@ -5,7 +5,9 @@ BookIt::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'resources#index'
 
-  resources :resources
+  resources :resources do
+    resources :bookings
+  end
 
   #match '/resources'
 
