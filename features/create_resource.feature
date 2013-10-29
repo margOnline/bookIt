@@ -24,4 +24,4 @@ Feature: The user can create a resource
   And the users sees the name "Centre court" in the list of resources
   When the user clicks the "Edit" link for the resource
   Then the user will see an input field "New name"
-  And the user will see a "Update resource" button
+  And the user will see a "Submit" button

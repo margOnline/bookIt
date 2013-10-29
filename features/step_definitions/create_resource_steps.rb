@@ -9,7 +9,7 @@ end
 
 When(/^I create a resource with the name "(.*?)"$/) do |name|
   fill_in 'Name', with: name
-  click_button 'Add resource'
+  click_button 'Submit'
 end
 
 Then(/^the number of resources in the database will increase by (\d+)$/) do |number|
