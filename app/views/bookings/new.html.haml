@@ -1,18 +1,21 @@
-= form_for @booking do |f|
-  %h3 
-    Add booking for 
-    = @booking.name
+%h3 
+  Add booking for 
+  = @resource.name
 
-    - if @booking.errors.any?
-      .errors
-        %h3
-          = pluralize(@booking.errors.count, 'error')
-          prohibited this booking from being saved:
-        %ul
-          - @booking.errors.full_messages.each do |message|
-            %li= message
+- if @booking.errors.any?
+  .errors
+    %h3
+      = pluralize(@booking.errors.count, 'error')
+      prohibited this booking from being saved:
+    %ul
+      - @booking.errors.full_messages.each do |message|
+        %li= message
+
+= form_for(:booking, :url => {:action => 'create', :resource_id => @resource.id}) do |f|
+  %p
     = f.label 'start_time', 'Start time'
-    = f.text_field 'start_time'
-    = f.label 'time_length', 'Length of booking'
-    = f.number_field 'time_length'
-    = f.submit 'Submit'
+    = f.datetime_select :start_time
+  %p
+    = f.label 'booking_length', 'Length of booking'
+    = number_field_tag 'booking_length'
+  = f.submit 'Submit'

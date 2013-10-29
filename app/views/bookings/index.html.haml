@@ -1,0 +1,10 @@
+%h3 
+  Bookings for
+  = @resource.name
+
+- @bookings.each do |booking|
+  .booking
+    = link_to "Delete", booking_path(booking), data: { confirm: 'Are you sure?' }, method: :delete
+    = link_to "Edit", edit_resource_booking_path(booking)
+
+
