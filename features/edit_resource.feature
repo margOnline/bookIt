@@ -30,3 +30,5 @@ Feature: The user can edit resources that have been created
   When the user is on the the "Centre court" edit page
   And the user fills in the name field with "Suzanne Lenglan" and clicks the "Submit" button.
   Then the user should see the error message "Name has already been taken"
+
+  

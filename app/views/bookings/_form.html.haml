@@ -1,0 +1,26 @@
+/ = form_for @booking do |f|
+/   - if @booking.errors.any?
+/     .errors
+/       %h3
+/         = pluralize(@booking.errors.count, 'error')
+/         prohibited this booking from being saved:
+/       %ul
+/         - @booking.errors.full_messages.each do |message|
+/           %li= message
+/   = f.label 'start_time', 'Start time'
+/   = f.text_field 'start_time'
+/   = f.label 'time_length', 'Length of time'
+/   = f.number_field 'time_length'
+/   = f.submit 'Submit'
+
+
+
+= form_tag new_resource_booking_path do 
+
+  - @resource.bookings.each do |booking| 
+
+    = label_tag 'start_time', 'Start time'
+    = text_field_tag 'start_time'
+    = label_tag 'time_length', 'Length of time'
+    = text_field_tag 'time_length'
+    = submit_tag 'Submit'
