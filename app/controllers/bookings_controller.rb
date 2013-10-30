@@ -28,6 +28,15 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
   end
 
+  def destroy
+    @booking = Booking.find(params[:id]).destroy
+    if @booking.destroy
+      redirect_to resource_bookings_path(@resource, @booking)
+    else
+      render 'index'
+    end
+  end
+
   private
     
   def find_resource
