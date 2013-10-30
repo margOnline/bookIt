@@ -2,8 +2,15 @@ class Booking < ActiveRecord::Base
   
   belongs_to :resource
 
-  validates :start_time, presence: true
+  validates :start_time, presence: true 
+  validate :start_date_cannot_be_in_the_past
   validates :length, presence: true
+
+  def start_date_cannot_be_in_the_past
+    if start_time && start_time < DateTime.now
+      errors.add(:start_time, 'can\'t be in the past')
+    end
+  end
 
   def calculate_end_time
     start_time = self.start_time

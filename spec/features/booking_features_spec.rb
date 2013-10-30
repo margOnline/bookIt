@@ -10,7 +10,7 @@ describe Booking do
     expect(page).to have_link 'Add booking'
   end
 
-  context 'validates the booking' do
+  context 'validates the booking form fields' do
     
     it 'for booking length' do
       visit new_resource_booking_path(resource)
@@ -22,15 +22,22 @@ describe Booking do
       click_button 'Submit'
       expect(page).to have_content 'Length can\'t be blank'
     end
+  end
 
-    it 'start_time cannot be before the present time' do
+  context 'validates the start_time' do
+    xit 'cannot be before the present time' do
       visit new_resource_booking_path(resource)
       select '2013', from: 'booking_start_time_1i'
       select 'October', from: 'booking_start_time_2i'
       select '29', from: 'booking_start_time_3i'
       select '09', from: 'booking_start_time_4i'
       select '00', from: 'booking_start_time_5i'
-      expect(page).to have_button 'Submit'
+      click_button 'Submit'
+      expect(page).to have_content 'Start time cannot be in the past'
+    end
+
+    xit 'cannot be during a time that is already taken' do
+
     end
 
   end
