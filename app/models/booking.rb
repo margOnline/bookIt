@@ -7,5 +7,8 @@ class Booking < ActiveRecord::Base
 
   attr_accessor :length
 
+  def calculate_end_time(start_time,length)
+    start_time + length.hours
+  end
 
 end

@@ -22,4 +22,12 @@ describe Booking do
       expect(Booking.create()).to_not be_valid
     end
   end
+
+  it 'calculates an end time from the start time and the length' do
+    start_time = DateTime.new(2013,10,30,9,9,9)
+    length = 2
+    expect(booking.calculate_end_time(start_time,length)).to eq (start_time + (2.hours))
+  end
+
+  
 end
