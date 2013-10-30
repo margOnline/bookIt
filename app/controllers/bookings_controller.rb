@@ -11,7 +11,7 @@ class BookingsController < ApplicationController
   end
 
   def create
-    end_time = calculate_end_time(params[:start_time],params[:booking_length])
+    # end_time = calculate_end_time(params[:start_time],params[:booking_length])
     @booking = Booking.new(params[:booking].permit(:resource_id, :start_time, :end_time))
     @booking.resource = @resource
 
@@ -31,9 +31,9 @@ class BookingsController < ApplicationController
     end
   end
 
-  def calculate_end_time(start_time,booking_length)
-    end_time = start_time.strftime(%Y) + booking_length
-  end
+  # def calculate_end_time(start_time,booking_length)
+  #   end_time = start_time.strftime(%Y) + booking_length
+  # end
 
 
 end
