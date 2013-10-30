@@ -11,7 +11,6 @@ Feature: The user can create a resource
   Given the user visits the home page
   Then the user will see the name "Centre court" of the resource that he just created
 
-  
 
   
 

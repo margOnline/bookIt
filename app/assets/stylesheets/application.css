@@ -27,3 +27,8 @@
 input[type="number"] { 
   width:30px; 
 }
+/*select[id*='booking_start_time] {
+    width:auto;
+    border: 5px solid #cccccc;
+    background-color: red;
+}*/

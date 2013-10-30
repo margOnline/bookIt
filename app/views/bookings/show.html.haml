@@ -1,0 +1,9 @@
+%h3 
+  Booking Confirmation
+%p 
+  Your booking is confirmed for
+  = @resource.name
+  ':'
+  = @booking.start_time.strftime('%e %b %Y %H:%m%p')
+  until
+  = @booking.calculate_end_time

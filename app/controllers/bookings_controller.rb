@@ -11,15 +11,29 @@ class BookingsController < ApplicationController
   end
 
   def create
-    # end_time = calculate_end_time(params[:start_time],params[:booking_length])
-    @booking = Booking.new(params[:booking].permit(:resource_id, :start_time, :end_time))
+    @booking = Booking.create(params[:booking].permit(:resource_id, :start_time, :length))
+    end_time = @booking.calculate_end_time #(@booking.start_time,@booking.length)
     @booking.resource = @resource
 
      if @booking.save
       flash[:notice] = 'booking added'
-      redirect_to(:action => 'index', :resource_id => @resource.id)
+      # redirect_to(:action => 'show', :resource_id => @resource.id)
+      redirect_to resource_booking_path(@resource, @booking)
     else
       render 'new'
+    end
+  end
+
+  def show
+    @booking = Booking.find(params[:id])
+  end
+
+  def destroy
+    @booking = Booking.find(params[:id]).destroy
+    if @booking.destroy
+      redirect_to resource_bookings_path(@resource, @booking)
+    else
+      render 'index'
     end
   end
 
@@ -30,10 +44,6 @@ class BookingsController < ApplicationController
       @resource = Resource.find_by_id(params[:resource_id])
     end
   end
-
-  # def calculate_end_time(start_time,booking_length)
-  #   end_time = start_time.strftime(%Y) + booking_length
-  # end
 
 
 end
