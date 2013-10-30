@@ -4,6 +4,10 @@ class BookingsController < ApplicationController
 
   def index
     @bookings = Booking.all.where(resource_id: @resource.id)
+    respond_to do |format|  
+      format.html
+      format.json { render :json => @bookings }  
+    end 
   end
 
   def new
