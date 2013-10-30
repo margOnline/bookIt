@@ -5,5 +5,7 @@ class Booking < ActiveRecord::Base
   validates :start_time, presence: true
   validates :end_time, presence: true
 
+  attr_accessor :length
+
 
 end
