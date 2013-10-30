@@ -1,12 +1,13 @@
 FactoryGirl.define do
 
   factory :resource do
-    name 'Centre court'
+    sequence(:name) { |n| "Court #{n}"}
   end
 
   factory :booking do
-    start_time = DateTime.new(2013,10,30,9,9,9)
-    length = 1
+    sequence(:start_time) { |n| DateTime.new(2013,10,n,10,0) }
+    length 1
+    resource_id 1
   end
 
 end

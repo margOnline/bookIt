@@ -11,19 +11,16 @@ To create a booking gem
 <li>Database - PosgreSQL</li>
 <li>Gems
   <ul>
-  <li>sinatra</li>
-  <li>dm-postgres-adapter</li>
   <li>capybara</li>
   <li>haml</li>
-  <li>sinatra-partial</li>
   <li>rack-flash3</li>
-  <li>bcrypt-ruby</li>
   <li>database_cleaner</li>
-  <li>localtunnel</li>
-  <li>shotgun</li>
   <li>cucumber</li>
-  <li>cucumber-sinatra</li>
+  <li>timecop</li>
   <li>factory-girl-rails</li>
+  <li>guard</li>
+  <li>spork</li>
+  <li></li>
 </ul>
 <h4>Contributors</h4>
 <a href="http://github.com/kunks001">Srikanth Kunkulagunta</a>, <a href="http://github.com/margOnline">Margo Urey</a>, <a href="http://github.com/chewymeister">Jonathan Tsang</a>
