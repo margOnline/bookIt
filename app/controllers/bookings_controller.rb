@@ -1,13 +1,11 @@
 class BookingsController < ApplicationController
-
-   before_action :find_resource
+  respond_to :html, :xml, :json
+  
+  before_action :find_resource
 
   def index
     @bookings = Booking.all.where(resource_id: @resource.id)
-    respond_to do |format|  
-      format.html
-      format.json { render :json => @bookings }  
-    end 
+    respond_with @bookings
   end
 
   def new
@@ -35,7 +33,7 @@ class BookingsController < ApplicationController
   def destroy
     @booking = Booking.find(params[:id]).destroy
     if @booking.destroy
-      redirect_to resource_bookings_path(@resource, @booking)
+      redirect_to resource_bookings_path(@resource)
     else
       render 'index'
     end
