@@ -13,9 +13,13 @@ class BookingsController < ApplicationController
   def create
     start_time = params[:booking].to_datetime("start_time")
     @booking = Booking.create(params[:booking].permit(:resource_id, :start_time, :length))
-    end_time = @booking.calculate_end_time 
-    @booking.resource = @resource
-    save @booking
+    end_time = @booking.end_time 
+    if !booked?(start_time, end_time)
+      @booking.resource = @resource
+      save @booking
+    else
+      render 'new'
+    end
   end
 
   def show
@@ -32,6 +36,10 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def booked?(start_time, end_time)
+    Booking.start_time_booked(start_time, end_time).end_time_booked(start_time, end_time).start_end_time_booked(start_time, end_time)
+  end
 
   def save booking
     if @booking.save
