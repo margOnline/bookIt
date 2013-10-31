@@ -67,34 +67,4 @@ $(document).ready(function() {
       }
 		});
 
-
-			// events: [
-		 //        {
-		 //            title: 'Court booking',
-		 //            start: '2013-10-10'
-		 //        },
-		 //        {
-		 //            title: 'Event2',
-		 //            start: '2013-10-10'
-		 //        }
-		 //        // etc...
-		 //    ]
-		    // ,
- 
-
-			// dayClick: function(date, allDay, jsEvent, view) {
-
-   //      if (allDay) {
-   //          alert('Clicked on the entire day: ' + date);
-   //      }else{
-   //          alert('Clicked on the slot: ' + date);
-   //      }
-
-   //      alert('Current view: ' + view.name);
-
-   //      // change the day's background color just for fun
-   //      $(this).css('background-color', 'red');
-
-   //  	} 
-
 });
