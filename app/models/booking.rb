@@ -5,6 +5,7 @@ class Booking < ActiveRecord::Base
   validates :start_time, presence: true 
   validates :length, presence: true
   validate :start_date_cannot_be_in_the_past
+  validate :overlaps
 
   before_validation :calculate_end_time
 
@@ -20,11 +21,19 @@ class Booking < ActiveRecord::Base
     where('start_time > ? AND end_time < ?', new_start_time, new_end_time)
   end
 
+  scope :enveloping, ->(new_start_time, new_end_time) do
+    where('start_time < ? AND end_time > ?', new_start_time, new_end_time)
+  end
+
   def overlaps
-    [ resource.bookings.end_during(start_time, end_time),
+    if [ 
+      resource.bookings.end_during(start_time, end_time),
       resource.bookings.start_during(start_time, end_time),
-      resource.bookings.happening_during(start_time, end_time)
-    ].flatten
+      resource.bookings.happening_during(start_time, end_time),
+      resource.bookings.enveloping(start_time, end_time)
+        ].flatten.empty?
+      errors.add(:base, 'Slot has already been booked')
+    end
   end
 
   def start_date_cannot_be_in_the_past
