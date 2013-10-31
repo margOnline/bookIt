@@ -36,6 +36,23 @@ class BookingsController < ApplicationController
     end
   end
 
+  def edit
+    @booking = Booking.find(params[:id])
+  end
+
+  def update
+    @booking = Booking.find(params[:id])
+    @booking.update(params[:booking].permit(:resource_id, :start_time, :length))
+
+    @booking.resource = @resource
+    if @booking.save
+      flash[:notice] = 'Your booking was updated succesfully'
+      redirect_to resource_bookings_path(@resource, method: :get)
+    else
+      render 'edit'
+    end
+  end
+
   private
 
   def save booking

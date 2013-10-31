@@ -46,7 +46,7 @@ describe Booking do
 
     it 'displays the end time of a booking when a booking is created' do
       visit new_resource_booking_path(resource)
-      select '2013', from: 'booking_start_time_1i'
+      select '2014', from: 'booking_start_time_1i'
       select 'October', from: 'booking_start_time_2i'
       select '30', from: 'booking_start_time_3i'
       select '09', from: 'booking_start_time_4i'
@@ -55,7 +55,7 @@ describe Booking do
       fill_in 'Length of booking in hours', with: '1'
 
       click_button 'Submit'
-      expect(page).to have_content DateTime.new(2013,10,30,9,0,0).strftime('%e %b %Y %H:%m%p')
+      expect(page).to have_content DateTime.new(2014,10,30,9,0,0).strftime('%e %b %Y %H:%m%p')
     end
 
     it 'deletes a booking' do

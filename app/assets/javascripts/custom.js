@@ -32,6 +32,8 @@ $(document).ready(function() {
       agenda: true
    	}	,
 
+    editable: true,
+
    	dayClick: function(date, allDay, jsEvent, view) {
       // console.log(view.name);
       if (view.name === "month") {
@@ -41,6 +43,7 @@ $(document).ready(function() {
     },
 
  		select: function(start, end, allDay) {
+
       if(today_or_later()) {
       	var length = (end-start)/(3600000);
 
@@ -58,6 +61,7 @@ $(document).ready(function() {
           { booking: {
             start_time: start,
             length: length,
+
         	} }
         );
 
