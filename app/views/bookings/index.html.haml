@@ -7,7 +7,7 @@
       Start
     %th
       End
-  - @bookings.each do |booking|
+  - @bookings.order('start_time').each do |booking|
     %tr
       %td
         = booking.start_time.strftime('%e %b %Y %H:%M%p')
