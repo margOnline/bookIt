@@ -6,6 +6,16 @@ $(document).ready(function() {
     	return window.location.href.match(/resources\/(\d+)\/booking/)[1];
     };
 
+    var today_or_later = function(){
+      var check = $('#calendar').fullCalendar('getDate');
+      var today = new Date();
+      if(check < today) {
+        return false;
+      } else {
+        return true;
+      };
+    };
+
     $('#calendar').fullCalendar({
         header: {
 				left: 'prev,next today',
@@ -30,27 +40,31 @@ $(document).ready(function() {
       }
     },
 
- 		select: function(start, end) {
-    	var length = (end-start)/(3600000);
+ 		select: function(start, end, allDay) {
+      if(today_or_later()) {
+      	var length = (end-start)/(3600000);
 
-      $('#calendar').fullCalendar('renderEvent', 
-        {
-          start: start,
-          end: end,
-          allDay: false
+        $('#calendar').fullCalendar('renderEvent', 
+          {
+            start: start,
+            end: end,
+            allDay: false
+          }
+        );
+
+        jQuery.post(
+          '/resources/'+current_resource()+'/bookings',
+          
+          { booking: {
+            start_time: start,
+            length: length,
+        	} }
+        );
+
+  	    } else {
+          // alert("help!");
         }
-      );
-
-      jQuery.post(
-        '/resources/'+current_resource()+'/bookings',
-        
-        { booking: {
-          start_time: start,
-          length: length,
-      	} }
-      );
-	    	  // calendar.fullCalendar('unselect');
-	    }
+      }
 		});
 
 
