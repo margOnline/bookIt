@@ -17,8 +17,7 @@ class Booking < ActiveRecord::Base
     :start => self.start_time,  
     :end => self.calculate_end_time,  
     :recurring => false, 
-    :allday => false
-    # :url => Rails.application.routes.url_helpers.resource_bookings_path(id)
+    :allDay => false
    }  
   end  
 

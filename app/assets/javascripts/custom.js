@@ -15,7 +15,33 @@ $(document).ready(function() {
 
 			eventSources: [{  
     		url: '/resources/'+current_resource()+'/bookings/',  
-   		}]
+   		}],
+
+   		selectable: true,
+
+   		select: function(start, end) {
+	    	var length = (end-start)/(3600000);
+
+	        $('#calendar').fullCalendar('renderEvent', 
+	            {
+	                start: start,
+	                end: end,
+	                allDay: false
+	            }
+	        );
+
+	        jQuery.post(
+	            '/resources/'+current_resource()+'/bookings',
+	              { booking: {
+	                start_time: start,
+	                length: length,
+	            	} }
+	        );
+
+	    	  // calendar.fullCalendar('unselect');
+	    }
+		});
+
 
 			// events: [
 		 //        {
@@ -45,6 +71,5 @@ $(document).ready(function() {
    //      $(this).css('background-color', 'red');
 
    //  	} 
- });
 
 });
