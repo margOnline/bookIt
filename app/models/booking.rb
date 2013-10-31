@@ -6,19 +6,7 @@ class Booking < ActiveRecord::Base
   validates :length, presence: true
   validate :start_date_cannot_be_in_the_past
 
-   before_validation :calculate_end_time
-
-  # scope :start_time_booked, lambda {|new_start_time, new_end_time| 
-  #   {:conditions => "start_time > #{new_start_time} and start_time <= #{new_end_time}" }
-  #   }
-
-  # scope :end_time_booked, lambda {|new_start_time, new_end_time| 
-  #   {:conditions => "end_time < #{new_end_time} and end_time < #{new_start_time}" }
-  #   }
-
-  # scope :start_end_time_booked, lambda {|new_start_time, new_end_time| 
-  #   {:conditions => "start_time < #{new_start_time} and end_time < #{new_start_time}" }
-  #   }
+  before_validation :calculate_end_time
 
   scope :end_during, ->(new_start_time, new_end_time) do
     where(end_time: new_start_time..new_end_time)
@@ -33,9 +21,9 @@ class Booking < ActiveRecord::Base
   end
 
   def overlaps
-    [ Booking.all.end_during(start_time, end_time),
-      Booking.all.start_during(start_time, end_time),
-      Booking.all.happening_during(start_time, end_time)
+    [ resource.bookings.end_during(start_time, end_time),
+      resource.bookings.start_during(start_time, end_time),
+      resource.bookings.happening_during(start_time, end_time)
     ].flatten
   end
 

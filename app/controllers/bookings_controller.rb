@@ -11,13 +11,15 @@ class BookingsController < ApplicationController
   end
 
   def create
-    start_time = params[:booking].to_datetime("start_time")
-    @booking = Booking.create(params[:booking].permit(:resource_id, :start_time, :length))
-    end_time = @booking.end_time 
-    if !booked?(start_time, end_time)
-      @booking.resource = @resource
-      save @booking
+    @booking =  Booking.new(params[:booking].permit(:resource_id, :start_time, :length))
+    @booking.resource = @resource
+    @booking.valid?
+
+    if @booking.overlaps.empty?
+      @booking.save
+      redirect_to resource_bookings_path(@resource, method: :get)
     else
+      flash.now[:notice] = 'Slot taken!'
       render 'new'
     end
   end
@@ -36,10 +38,6 @@ class BookingsController < ApplicationController
   end
 
   private
-
-  def booked?(start_time, end_time)
-    Booking.start_time_booked(start_time, end_time).end_time_booked(start_time, end_time).start_end_time_booked(start_time, end_time)
-  end
 
   def save booking
     if @booking.save

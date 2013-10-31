@@ -4,6 +4,6 @@
   Your booking is confirmed for
   = @resource.name
   ':'
-  = @booking.start_time.strftime('%e %b %Y %H:%m%p')
+  = @booking.start_time.strftime('%e %b %Y %H:%M%p')
   until
   = @booking.calculate_end_time
