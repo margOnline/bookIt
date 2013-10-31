@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131030110125) do
+ActiveRecord::Schema.define(version: 20131031135038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20131030110125) do
     t.datetime "updated_at"
     t.integer  "resource_id"
     t.integer  "length"
+    t.datetime "end_time"
   end
 
   add_index "bookings", ["resource_id"], name: "index_bookings_on_resource_id", using: :btree

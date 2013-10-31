@@ -25,7 +25,7 @@ describe Booking do
   end
 
   context 'validates the start_time' do
-    xit 'cannot be before the present time' do
+    it 'cannot be in the past' do
       visit new_resource_booking_path(resource)
       select '2013', from: 'booking_start_time_1i'
       select 'October', from: 'booking_start_time_2i'
@@ -33,7 +33,7 @@ describe Booking do
       select '09', from: 'booking_start_time_4i'
       select '00', from: 'booking_start_time_5i'
       click_button 'Submit'
-      expect(page).to have_content 'Start time cannot be in the past'
+      expect(page).to have_content 'Start time can\'t be in the past'
     end
 
     xit 'cannot be during a time that is already taken' do

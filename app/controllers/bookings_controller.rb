@@ -13,11 +13,17 @@ class BookingsController < ApplicationController
   end
 
   def create
-    start_time = params[:booking].to_datetime("start_time")
-    @booking = Booking.create(params[:booking].permit(:resource_id, :start_time, :length))
-    end_time = @booking.calculate_end_time 
+    @booking =  Booking.new(params[:booking].permit(:resource_id, :start_time, :length))
     @booking.resource = @resource
-    save @booking
+    @booking.valid?
+
+    if @booking.overlaps.empty?
+      @booking.save
+      redirect_to resource_bookings_path(@resource, method: :get)
+    else
+      flash.now[:notice] = 'Slot taken!'
+      render 'new'
+    end
   end
 
   def show
