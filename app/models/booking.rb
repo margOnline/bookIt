@@ -18,4 +18,14 @@ class Booking < ActiveRecord::Base
     start_time + length.hours
   end
 
+  def as_json(options = {})  
+   {  
+    :id => self.id,  
+    :start => self.start_time,  
+    :end => self.calculate_end_time,  
+    :recurring => false, 
+    :allDay => false
+   }  
+  end  
+
 end
