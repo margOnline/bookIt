@@ -17,27 +17,38 @@ $(document).ready(function() {
     		url: '/resources/'+current_resource()+'/bookings/',  
    		}],
 
-   		selectable: true,
+   		selectable: {
+      month: false,
+      agenda: true
+   	}	,
 
-   		select: function(start, end) {
-	    	var length = (end-start)/(3600000);
+   	dayClick: function(date, allDay, jsEvent, view) {
+      // console.log(view.name);
+      if (view.name === "month") {
+        $('#calendar').fullCalendar('gotoDate', date);
+        $('#calendar').fullCalendar('changeView', 'agendaDay');
+      }
+    },
 
-	        $('#calendar').fullCalendar('renderEvent', 
-	            {
-	                start: start,
-	                end: end,
-	                allDay: false
-	            }
-	        );
+ 		select: function(start, end) {
+    	var length = (end-start)/(3600000);
 
-	        jQuery.post(
-	            '/resources/'+current_resource()+'/bookings',
-	              { booking: {
-	                start_time: start,
-	                length: length,
-	            	} }
-	        );
+      $('#calendar').fullCalendar('renderEvent', 
+        {
+          start: start,
+          end: end,
+          allDay: false
+        }
+      );
 
+      jQuery.post(
+        '/resources/'+current_resource()+'/bookings',
+        
+        { booking: {
+          start_time: start,
+          length: length,
+      	} }
+      );
 	    	  // calendar.fullCalendar('unselect');
 	    }
 		});
