@@ -31,7 +31,7 @@ class Booking < ActiveRecord::Base
       resource.bookings.start_during(start_time, end_time),
       resource.bookings.happening_during(start_time, end_time),
       resource.bookings.enveloping(start_time, end_time)
-        ].flatten.empty?
+        ].flatten.any?
       errors.add(:base, 'Slot has already been booked')
     end
   end
