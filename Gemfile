@@ -32,6 +32,9 @@ gem 'haml'
 #Provides 'time travel' and 'time freezing' capabilities for testing
 gem 'timecop'
 
+# To enable features such as static asset serving and logging on Heroku
+gem 'rails_12factor'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
