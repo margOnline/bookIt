@@ -4,7 +4,7 @@ class BookingsController < ApplicationController
   before_action :find_resource
 
   def index
-    @bookings = Booking.all.where(resource_id: @resource.id)
+    @bookings = Booking.where(resource_id: @resource.id)
     respond_with @bookings
   end
 

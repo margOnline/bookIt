@@ -3,7 +3,7 @@ class Booking < ActiveRecord::Base
   belongs_to :resource
 
   validates :start_time, presence: true 
-  validates :length, presence: true
+  validates :length, presence: true, numericality: { greater_than: 0 }
   validate :start_date_cannot_be_in_the_past
   validate :overlaps
 
