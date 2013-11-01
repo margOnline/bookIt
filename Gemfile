@@ -52,6 +52,7 @@ group :test do
   gem "database_cleaner", '1.0.0.RC1'
 end
 
+ruby "2.0.0"
 
 
 # Use ActiveModel has_secure_password
