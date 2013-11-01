@@ -14,37 +14,32 @@ describe Booking do
     expect(page).to have_link 'Add booking'
   end
 
-  context 'validates the booking form fields' do
-    it 'for booking length' do
-      invalid_length_booking
+  describe 'Creating a booking' do
+    context 'is not valid when' do
+      it 'the booking length field is empty' do
+        invalid_length_booking
 
-      expect(page).to have_content "Length can\'t be blank"
-    end
-  end
+        expect(page).to have_content "Length can\'t be blank"
+      end
 
-  context 'validates the start_time' do
+      it 'the booking start time is in the past' do
+        invalid_time_booking
 
-    it 'cannot be in the past' do
-      invalid_time_booking
-
-      expect(page).to have_content "Start time can\'t be in the past"
-    end
-
-  end
-
-  context 'creates, displays, updates and deletes a booking' do
-
-    it 'displays the end time of a booking when a booking is created' do
-      valid_booking
-      date_string = DateTime.new(2013,10,30,10,0,0).strftime('%e %b %Y %I:%M%p')
-      
-      expect(page).to have_content 
+        expect(page).to have_content "Start time can\'t be in the past"
+      end
     end
 
+    context 'is valid when' do
+      it 'booking length field has been filled in and start time is in the future' do
+        valid_booking
+        date_string = DateTime.new(2013,10,30,10,0,0).strftime('%e %b %Y %I:%M%p')
+        
+        expect(page).to have_content 
+      end
+    end
   end
 
   context 'deletes a booking' do
-
     before do
       @resource = Resource.create(name: 'Court 6')
       @booking = FactoryGirl.create(:booking, :resource_id => @resource.id)
@@ -57,7 +52,6 @@ describe Booking do
 
       expect(Booking.count).to eq original_booking_count - 1
     end
-
   end
 
 
