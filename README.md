@@ -25,6 +25,7 @@ To create a booking gem
 <h4>Contributors</h4>
 <a href="http://github.com/kunks001">Srikanth Kunkulagunta</a>, <a href="http://github.com/margOnline">Margo Urey</a>, <a href="http://github.com/chewymeister">Jonathan Tsang</a>
 
-<h4>Updates</h4><ul>
+<h4>Next Steps</h4><ul>
+<li>Date validation in the views</li>
 </ul>
 
