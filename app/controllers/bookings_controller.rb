@@ -4,7 +4,7 @@ class BookingsController < ApplicationController
   before_action :find_resource
 
   def index
-    @bookings = Booking.all.where(resource_id: @resource.id)
+    @bookings = Booking.where(resource_id: @resource.id)
     respond_with @bookings
   end
 
@@ -34,6 +34,27 @@ class BookingsController < ApplicationController
       redirect_to resource_bookings_path(@resource)
     else
       render 'index'
+    end
+  end
+
+  def edit
+    @booking = Booking.find(params[:id])
+  end
+
+  def update
+    @booking = Booking.find(params[:id])
+    # @booking.resource = @resource
+
+    if @booking.update(params[:booking].permit(:resource_id, :start_time, :length))
+      flash[:notice] = 'Your booking was updated succesfully'
+
+      if request.xhr?
+        render json: {status: :success}.to_json
+      else
+        redirect_to resource_bookings_path(@resource)
+      end
+    else
+      render 'edit'
     end
   end
 

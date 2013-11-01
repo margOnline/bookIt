@@ -37,6 +37,7 @@ describe Booking do
 
     it 'does not save to the database' do
       booking_clash booking.resource
+
       expect(page).to have_content "Slot has already been booked"
     end
   end 
