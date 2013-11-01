@@ -33,6 +33,8 @@ $(document).ready(function() {
    	}	,
 
     editable: true,
+    eventStartEditable: true, 
+    eventDurationEditable: true,
 
     eventDrop: function(booking) {
       var length = (booking.end-booking.start)/(3600000);
@@ -43,7 +45,7 @@ $(document).ready(function() {
                 { 'type': 'PATCH',
 
                   data: { booking: { 
-                           starts_at: "" + booking.start,
+                           start_time: "" + booking.start,
                            length: length
                          } }
                 }
@@ -64,7 +66,7 @@ $(document).ready(function() {
                 { 'type': 'PATCH',
 
                   data: { booking: { 
-                           starts_at: "" + booking.start,
+                           start_time: "" + booking.start,
                            length: length
                          } }
                 }
@@ -78,7 +80,7 @@ $(document).ready(function() {
 
    	dayClick: function(date, allDay, jsEvent, view) {
       // console.log(view.name);
-      if (view.name === "month") {
+      if (view.name === "month") { 
         $('#calendar').fullCalendar('gotoDate', date);
         $('#calendar').fullCalendar('changeView', 'agendaDay');
       }
