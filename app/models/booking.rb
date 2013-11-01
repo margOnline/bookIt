@@ -10,11 +10,11 @@ class Booking < ActiveRecord::Base
   before_validation :calculate_end_time
 
   scope :end_during, ->(new_start_time, new_end_time) do
-    where(end_time: new_start_time..new_end_time)
+    where(end_time: new_start_time...new_end_time)
   end
 
   scope :start_during, ->(new_start_time, new_end_time) do
-    where(start_time: new_start_time..new_end_time)
+    where(start_time: new_start_time...new_end_time)
   end
 
   scope :happening_during, ->(new_start_time, new_end_time) do

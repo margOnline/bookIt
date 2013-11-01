@@ -32,6 +32,9 @@ gem 'haml'
 #Provides 'time travel' and 'time freezing' capabilities for testing
 gem 'timecop'
 
+# To enable features such as static asset serving and logging on Heroku
+gem 'rails_12factor'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -49,6 +52,7 @@ group :test do
   gem "database_cleaner", '1.0.0.RC1'
 end
 
+ruby "2.0.0"
 
 
 # Use ActiveModel has_secure_password

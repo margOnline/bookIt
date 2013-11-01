@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'spork'
+require_relative 'helpers/booking_helpers'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
