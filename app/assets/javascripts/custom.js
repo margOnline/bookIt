@@ -32,39 +32,89 @@ $(document).ready(function() {
       agenda: true
    	}	,
 
+    editable: true,
+    eventStartEditable: true, 
+    eventDurationEditable: true,
+
+    eventDrop: function(booking) {
+      var length = (booking.end-booking.start)/(3600000);
+
+        function updateEvent(booking) {
+              $.ajax(
+                '/resources/'+current_resource()+'/bookings/'+booking.id,
+                { 'type': 'PATCH',
+
+                  data: { booking: { 
+                           start_time: "" + booking.start,
+                           length: length
+                         } }
+                }
+              );
+          };
+
+        updateEvent(booking);
+
+      }
+    ,
+
+    eventResize: function(booking) {
+      var length = (booking.end-booking.start)/(3600000);
+
+        function updateEvent(booking) {
+              $.ajax(
+                '/resources/'+current_resource()+'/bookings/'+booking.id,
+                { 'type': 'PATCH',
+
+                  data: { booking: { 
+                           start_time: "" + booking.start,
+                           length: length
+                         } }
+                }
+              );
+          };
+
+        updateEvent(booking);
+
+      }
+    ,
+
    	dayClick: function(date, allDay, jsEvent, view) {
       // console.log(view.name);
-      if (view.name === "month") {
+      if (view.name === "month") { 
         $('#calendar').fullCalendar('gotoDate', date);
         $('#calendar').fullCalendar('changeView', 'agendaDay');
       }
     },
 
  		select: function(start, end, allDay) {
-      if(today_or_later()) {
-      	var length = (end-start)/(3600000);
+      if (window.location.href.match(/new/)) {
+        if(today_or_later()) {
+        	var length = (end-start)/(3600000);
 
-        $('#calendar').fullCalendar('renderEvent', 
-          {
-            start: start,
-            end: end,
-            allDay: false
-          }
-        );
+          $('#calendar').fullCalendar('renderEvent', 
+            {
+              start: start,
+              end: end,
+              allDay: false
+            }
+          );
 
-        jQuery.post(
-          '/resources/'+current_resource()+'/bookings',
-          
-          { booking: {
-            start_time: start,
-            length: length,
-        	} }
-        );
+          jQuery.post(
+            '/resources/'+current_resource()+'/bookings',
+            
+            { booking: {
+              start_time: start,
+              length: length,
 
-  	    } else {
-          // alert("help!");
+          	} }
+          );
+
+    	    } else {
+            // alert("help!");
         }
       }
-		});
+       // else if (window.location.href.match(/edit/)) {
+    }
+	});
 
 });

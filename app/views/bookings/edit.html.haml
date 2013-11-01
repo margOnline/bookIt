@@ -1,0 +1,24 @@
+%h3 
+  Add booking for 
+  = @resource.name
+
+- if @booking.errors.any?
+  .errors
+    %h3
+      = pluralize(@booking.errors.count, 'error')
+      prohibited this booking from being saved:
+    %ul
+      - @booking.errors.full_messages.each do |message|
+        %li= message
+
+= form_for([@resource, @booking]) do |f|
+  %p
+    = f.label 'start_time', 'Start time'
+    = f.datetime_select :start_time, {minute_step: 15}
+  %p
+    = f.label 'length', 'Length of booking in hours'
+    = f.number_field 'length'
+  = f.submit 'Submit'
+
+.calendar_container
+  #calendar
