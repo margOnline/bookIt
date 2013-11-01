@@ -35,6 +35,28 @@ $(document).ready(function() {
     editable: true,
 
     eventDrop: function(booking) {
+      var length = (booking.end-booking.start)/(3600000);
+
+        function updateEvent(booking) {
+              $.ajax(
+                '/resources/'+current_resource()+'/bookings/'+booking.id,
+                { 'type': 'PATCH',
+
+                  data: { booking: { 
+                           starts_at: "" + booking.start,
+                           length: length
+                         } }
+                }
+              );
+          };
+
+        updateEvent(booking);
+
+      }
+    ,
+
+    eventResize: function(booking) {
+      var length = (booking.end-booking.start)/(3600000);
 
         function updateEvent(booking) {
               $.ajax(
@@ -90,23 +112,6 @@ $(document).ready(function() {
         }
       }
        // else if (window.location.href.match(/edit/)) {
-      //   if(today_or_later()) {
-      //     var length = (end-start)/(3600000);
-
-      //     function updateEvent(the_event) {
-      //         $.update(
-      //           '/resources/'+current_resource()+'/bookings'+the_event.id,
-      //           { event: { 
-      //                      starts_at: "" + the_event.start,
-      //                      length: length
-      //                    }
-      //           }
-      //         );
-      //     };
-
-      //     } else {
-      //   }
-      // }
     }
 	});
 

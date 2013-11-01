@@ -42,12 +42,16 @@ class BookingsController < ApplicationController
 
   def update
     @booking = Booking.find(params[:id])
-    @booking.update(params[:booking].permit(:resource_id, :start_time, :length))
+    # @booking.resource = @resource
 
-    @booking.resource = @resource
-    if @booking.save
+    if @booking.update(params[:booking].permit(:resource_id, :start_time, :length))
       flash[:notice] = 'Your booking was updated succesfully'
-      redirect_to resource_bookings_path(@resource, method: :get)
+
+      if request.xhr?
+        render json: {status: :success}.to_json
+      else
+        redirect_to resource_bookings_path(@resource)
+      end
     else
       render 'edit'
     end

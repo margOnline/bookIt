@@ -26,12 +26,15 @@ class Booking < ActiveRecord::Base
   end
 
   def overlaps
-    if [ 
+    overlapping_bookings = [ 
       resource.bookings.end_during(start_time, end_time),
       resource.bookings.start_during(start_time, end_time),
       resource.bookings.happening_during(start_time, end_time),
       resource.bookings.enveloping(start_time, end_time)
-        ].flatten.any?
+    ].flatten
+
+    overlapping_bookings.delete self
+    if overlapping_bookings.any?
       errors.add(:base, 'Slot has already been booked')
     end
   end
