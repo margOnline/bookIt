@@ -10,19 +10,35 @@ class Booking < ActiveRecord::Base
   before_validation :calculate_end_time
 
   scope :end_during, ->(new_start_time, new_end_time) do
-    where(end_time: new_start_time...new_end_time)
+    if (!new_start_time.nil?) && (!new_end_time.nil?)
+      where(end_time: new_start_time...new_end_time)
+    else
+      return nil
+    end
   end
 
   scope :start_during, ->(new_start_time, new_end_time) do
-    where(start_time: new_start_time...new_end_time)
+    if (!new_start_time.nil?) && (!new_end_time.nil?)
+      where(start_time: new_start_time...new_end_time)
+    else
+      return nil
+    end
   end
 
   scope :happening_during, ->(new_start_time, new_end_time) do
-    where('start_time > ? AND end_time < ?', new_start_time, new_end_time)
+    if (!new_start_time.nil?) && (!new_end_time.nil?)
+      where('start_time > ? AND end_time < ?', new_start_time, new_end_time)
+    else
+      return nil
+    end 
   end
 
   scope :enveloping, ->(new_start_time, new_end_time) do
+    if (!new_start_time.nil?) && (!new_end_time.nil?)
     where('start_time < ? AND end_time > ?', new_start_time, new_end_time)
+    else
+      return nil
+    end
   end
 
   def overlaps
@@ -40,25 +56,47 @@ class Booking < ActiveRecord::Base
   end
 
   def start_date_cannot_be_in_the_past
-    if start_time && start_time < DateTime.now
-      errors.add(:start_time, 'can\'t be in the past')
+    if start_time && start_time < DateTime.now + (15.minutes)
+      errors.add(:start_time, 'cannot be in the past')
     end
   end
 
   def calculate_end_time
-    start_time = self.start_time
-    length = self.length.to_i
-    self.end_time = start_time + length.hours
+    start_time = validate_start_time
+    length = validate_length
+    if start_time && length
+      self.end_time = start_time + length.hours
+    end
   end
 
   def as_json(options = {})  
    {  
     :id => self.id,  
     :start => self.start_time,  
-    :end => self.calculate_end_time,  
+    :end => self.calculate_end_time,
     :recurring => false, 
     :allDay => false
    }  
   end  
+
+  private
+
+    def validate_start_time
+      if !self.start_time.nil?
+        start_time = self.start_time
+      else
+        errors.add(:start_time, 'cannot create booking without a start time')
+        return nil
+      end
+    end
+
+    def validate_length
+      if !self.length.nil?
+        length = self.length.to_i
+      else
+        errors.add(:length, 'cannot create booking without length of required booking')
+        return nil
+      end
+    end
 
 end
