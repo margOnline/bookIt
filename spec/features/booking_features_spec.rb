@@ -56,7 +56,7 @@ describe Booking do
     it 'when user clicks delete link' do
       original_booking_count = Booking.count
       visit resource_bookings_path(booking.resource_id)
-      click_link 'Delete'
+      click_link 'Delete' 
 
       expect(Booking.count).to eq original_booking_count - 1
     end
