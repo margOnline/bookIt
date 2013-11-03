@@ -46,7 +46,7 @@ describe Booking do
     it 'booking length field has been filled in and start time is in the future' do
       valid_booking
       
-      expect(page).to have_content DateTime.new(2013,10,28,10,0,0).strftime('%e %b %Y %I:%M%p')
+      expect(page).to have_content DateTime.new(2013,10,30,10,0,0).strftime('%e %b %Y %I:%M%p')
     end
   end
 

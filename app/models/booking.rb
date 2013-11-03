@@ -85,7 +85,6 @@ class Booking < ActiveRecord::Base
       if !self.start_time.nil?
         start_time = self.start_time
       else
-        errors.add(:start_time, 'cannot create booking without a start time')
         return nil
       end
     end
@@ -94,7 +93,6 @@ class Booking < ActiveRecord::Base
       if !self.length.nil?
         length = self.length.to_i
       else
-        errors.add(:length, 'cannot create booking without length of required booking')
         return nil
       end
     end

@@ -1,10 +1,11 @@
 passed = true
-n = 1
+repeat = ARGV[0].to_i
+n = 0
 success = []
 failure = []
-while (passed && n < 11) do
-  puts "Test number #{n}"
-  puts `rspec #{ARGV[0]}`
+while (passed && n < repeat) do
+  puts "Test number #{n + 1}"
+  puts `rspec #{ARGV[1]}`
   passed = $?.success?
 
   if passed
@@ -19,7 +20,7 @@ while (passed && n < 11) do
   n += 1
 end
 
-if n >= 11
+if n >= repeat
   puts "Tests passed: #{success.count}"
   puts "Tests failed: #{failure.count}"
 end
