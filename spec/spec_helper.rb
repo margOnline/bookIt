@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'spork'
-require_relative 'helpers/booking_helpers'
+require_relative 'helpers/booking_feature_helpers'
+require_relative 'helpers/booking_model_helpers'
+
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -33,6 +35,7 @@ Spork.prefork do
     # config.mock_with :mocha
     # config.mock_with :flexmock
     # config.mock_with :rr
+
 
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
     config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -67,6 +70,6 @@ Spork.prefork do
   end
 end
 
-Spork.each_run do
-  # This code will be run each time you run your specs.
-end
+# Spork.each_run do
+#   # This code will be run each time you run your specs.
+# end

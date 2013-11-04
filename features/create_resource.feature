@@ -16,5 +16,3 @@ Feature: The user can create a resource
 
   
 
-  
-
