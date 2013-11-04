@@ -38,7 +38,7 @@ describe Booking do
       booking = Booking.new(start_time: DateTime.new(2013,10,27,9,9,0), length: 1 )
       add_reference resource, booking
 
-      expect(booking.errors.full_messages).to include "Start time cannot be in the past"
+      expect(booking.errors.full_messages).to include "Start time must be at least 15 minutes from present time"
     end
 
     it "a start time that is less than 15 minutes in the future is provided" do
