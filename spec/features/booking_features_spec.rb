@@ -24,15 +24,11 @@ describe Booking do
     it 'the booking time field cannot be in the past' do
       invalid_time_booking
 
-      expect(page).to have_content "Start time cannot be in the past"
+      expect(page).to have_content "Start time must be at least 15 minutes from present time"
     end
   end
 
   context 'When another booking with the same time slot exists' do
-    before do
-      t = Time.local(2013,10,29,8,0,0)
-      Timecop.travel(t)
-    end
     let(:booking){FactoryGirl.create(:booking)}
 
     it 'does not save to the database' do
@@ -61,6 +57,5 @@ describe Booking do
       expect(Booking.count).to eq original_booking_count - 1
     end
   end
-
 
 end
