@@ -4,7 +4,7 @@ class BookingsController < ApplicationController
   before_action :find_resource
 
   def index
-    @bookings = Booking.where("resource_id = ? AND start_time >= ?", @resource.id, Time.now).order(:start_time)
+    @bookings = Booking.where("resource_id = ? AND end_time >= ?", @resource.id, Time.now).order(:start_time)
     respond_with @bookings
   end
 

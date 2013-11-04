@@ -11,7 +11,7 @@ class Booking < ActiveRecord::Base
 
   scope :end_during, ->(new_start_time, new_end_time) do
     if (!new_start_time.nil?) && (!new_end_time.nil?)
-      where(end_time: new_start_time...new_end_time)
+      where('end_time > ? AND end_time < ?', new_start_time, new_end_time)
     else
       return nil
     end
@@ -19,7 +19,7 @@ class Booking < ActiveRecord::Base
 
   scope :start_during, ->(new_start_time, new_end_time) do
     if (!new_start_time.nil?) && (!new_end_time.nil?)
-      where(start_time: new_start_time...new_end_time)
+      where('start_time > ? AND start_time < ?', new_start_time, new_end_time)
     else
       return nil
     end
@@ -35,7 +35,15 @@ class Booking < ActiveRecord::Base
 
   scope :enveloping, ->(new_start_time, new_end_time) do
     if (!new_start_time.nil?) && (!new_end_time.nil?)
-    where('start_time < ? AND end_time > ?', new_start_time, new_end_time)
+      where('start_time < ? AND end_time > ?', new_start_time, new_end_time)
+    else
+      return nil
+    end
+  end
+
+  scope :identical, ->(new_start_time, new_end_time) do
+    if (!new_start_time.nil?) && (!new_end_time.nil?)
+      where('start_time = ? AND end_time = ?', new_start_time, new_end_time)
     else
       return nil
     end
@@ -46,7 +54,8 @@ class Booking < ActiveRecord::Base
       resource.bookings.end_during(start_time, end_time),
       resource.bookings.start_during(start_time, end_time),
       resource.bookings.happening_during(start_time, end_time),
-      resource.bookings.enveloping(start_time, end_time)
+      resource.bookings.enveloping(start_time, end_time),
+      resource.bookings.identical(start_time, end_time)
     ].flatten
 
     overlapping_bookings.delete self
@@ -65,7 +74,7 @@ class Booking < ActiveRecord::Base
     start_time = validate_start_time
     length = validate_length
     if start_time && length
-      self.end_time = start_time + length.hours
+      self.end_time = start_time + (length.hours - 60)
     end
   end
 
