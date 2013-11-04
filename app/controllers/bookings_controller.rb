@@ -4,7 +4,7 @@ class BookingsController < ApplicationController
   before_action :find_resource
 
   def index
-    @bookings = Booking.where(resource_id: @resource.id)
+    @bookings = Booking.where("resource_id = ? AND start_time >= ?", @resource.id, Time.now).order(:start_time)
     respond_with @bookings
   end
 
@@ -15,7 +15,6 @@ class BookingsController < ApplicationController
   def create
     @booking =  Booking.new(params[:booking].permit(:resource_id, :start_time, :length))
     @booking.resource = @resource
-    # @booking.valid?
     if @booking.save
       redirect_to resource_bookings_path(@resource, method: :get)
     else
