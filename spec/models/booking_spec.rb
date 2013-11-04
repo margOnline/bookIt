@@ -6,7 +6,7 @@ describe Booking do
     Timecop.travel(t)
   end
   let!(:resource) { Resource.new(name: 'Court 1') }
-  let!(:booking) { Booking.new(start_time: DateTime.now + 15.minutes, length: 1) }
+  let!(:booking) { Booking.new(start_time: DateTime.now, length: 1) }
 
   subject{ booking }
 
@@ -60,26 +60,27 @@ describe Booking do
 
   context 'should be valid when' do
     it 'the start time, length, and resource are provided' do
-      booking = Booking.new(start_time: DateTime.now + (1.hours), length: 1)
-      add_reference resource, booking
+      valid_booking = Booking.new(start_time: DateTime.now + 1.hours, length: 1)
+      add_reference resource, valid_booking
 
-      expect(booking).to be_valid
+      expect(valid_booking).to be_valid
     end
 
     it 'a start time that is at least 15 minutes in the future' do
-      booking = Booking.new(start_time: DateTime.now + (15.minutes), length: 1)
-      add_reference resource, booking
+      valid_booking = Booking.new(start_time: DateTime.now + (15.minutes), length: 1)
+      add_reference resource, valid_booking
 
-      expect(booking).to be_valid
+      expect(valid_booking).to be_valid
     end
 
     it 'when a booking starts immediately after one ends' do
-      add_reference resource, booking
-      booking_2 = Booking.new(start_time: DateTime.now + (1.hours) + 15.minutes, length: 1)
-      add_reference resource, booking_2
+      valid_booking = Booking.new(start_time: DateTime.now + 15.minutes, length: 1)
+      add_reference resource, valid_booking
+      valid_booking_2 = Booking.new(start_time: DateTime.now + (1.hours) + 15.minutes, length: 1)
+      add_reference resource, valid_booking_2
 
-      expect(booking).to be_valid
-      expect(booking_2).to be_valid
+      expect(valid_booking).to be_valid
+      expect(valid_booking_2).to be_valid
     end
   end
 
