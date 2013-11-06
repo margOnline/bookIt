@@ -1,4 +1,13 @@
-$(document).ready(function() {
+$(document).ready(function(){
+  calendar();
+});
+
+$(document).on('page:load', function() {
+  calendar();
+});
+
+
+var calendar = function(){
 
     // page is now ready, initialize the calendar...
 
@@ -84,7 +93,8 @@ $(document).ready(function() {
         $('#calendar').fullCalendar('gotoDate', date);
         $('#calendar').fullCalendar('changeView', 'agendaDay');
       }
-    },
+    }
+    ,
 
  		select: function(start, end, allDay) {
       if (window.location.href.match(/new/)) {
@@ -113,20 +123,8 @@ $(document).ready(function() {
             // alert("help!");
         }
       }
-       // else if (window.location.href.match(/edit/)) {
     }
+
 	});
 
-});
-
-// $(document).ready(function() {
-//   $('#calendar').fullCalendar({
-//     dayClick: function(date, allDay, jsEvent, view) {
-//         // console.log(view.name);
-//         if (view.name === "month") { 
-//           $('#calendar').fullCalendar('gotoDate', date);
-//           $('#calendar').fullCalendar('changeView', 'agendaDay');
-//         }
-//       }
-//     });
-// });
+};
