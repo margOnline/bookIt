@@ -118,3 +118,15 @@ $(document).ready(function() {
 	});
 
 });
+
+// $(document).ready(function() {
+//   $('#calendar').fullCalendar({
+//     dayClick: function(date, allDay, jsEvent, view) {
+//         // console.log(view.name);
+//         if (view.name === "month") { 
+//           $('#calendar').fullCalendar('gotoDate', date);
+//           $('#calendar').fullCalendar('changeView', 'agendaDay');
+//         }
+//       }
+//     });
+// });
